@@ -36,7 +36,7 @@ public class EstimatorControllerTest {
         InsuredCar insuredCar = new InsuredCar();
 
         insuredCar.setBrand("Ford");
-        insuredCar.setCoverageType(CoverageType.full);
+        insuredCar.setCoverageType(CoverageType.full.name());
 
         ResponseEntity result = estimatorController.getEstimation(insuredCar);
 
@@ -48,7 +48,7 @@ public class EstimatorControllerTest {
         InsuredCar insuredCar = new InsuredCar();
 
         insuredCar.setYear(2019);
-        insuredCar.setCoverageType(CoverageType.full);
+        insuredCar.setCoverageType(CoverageType.full.name());
 
         ResponseEntity result = estimatorController.getEstimation(insuredCar);
 
@@ -61,7 +61,7 @@ public class EstimatorControllerTest {
 
         insuredCar.setBrand("Ford");
         insuredCar.setYear(2019);
-        insuredCar.setCoverageType(CoverageType.full);
+        insuredCar.setCoverageType(CoverageType.full.name());
 
         Mockito.when(estimateInsuranceService.getPrice(insuredCar)).thenReturn(335.11);
 

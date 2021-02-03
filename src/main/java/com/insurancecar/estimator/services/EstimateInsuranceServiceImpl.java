@@ -37,7 +37,7 @@ public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
         sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
 
         // check coverage type and increment with corresponding cost
-        if(insuredCar.getCoverageType() == CoverageType.full)
+        if(insuredCar.getCoverageType() == CoverageType.full.name())
             sum = sum * Constants.COVERAGE_FULL_RATE;
         else
             sum = sum * Constants.COVERAGE_BASIC_RATE;

@@ -37,7 +37,7 @@ public class EstimateInsuranceServiceTest {
     public void getPriceZero_whenBrandNotExist()  {
         Mockito.when(brandServiceRate.getBrands()).thenReturn(createListBrandOnlyForTestPurpose());
 
-        Double result = estimateInsuranceService.getPrice(new InsuredCar("Torino", 1971, CoverageType.full));
+        Double result = estimateInsuranceService.getPrice(new InsuredCar("Torino", 1971, CoverageType.full.name()));
         Double expected = 0.00;
         Assertions.assertEquals(expected, result);
     }
@@ -46,7 +46,7 @@ public class EstimateInsuranceServiceTest {
     public void getHigherPrice_whenUseCoverageTypeFull()  {
         Mockito.when(brandServiceRate.getBrands()).thenReturn(createListBrandOnlyForTestPurpose());
 
-        InsuredCar mBenzFull = new InsuredCar("Mercedes-Benz", 2019, CoverageType.full);
+        InsuredCar mBenzFull = new InsuredCar("Mercedes-Benz", 2019, CoverageType.full.name());
 
         Double result = estimateInsuranceService.getPrice(mBenzFull);
 
@@ -65,7 +65,7 @@ public class EstimateInsuranceServiceTest {
     public void getLowerPrice_whenUseCoverageTypeBasic()  {
         Mockito.when(brandServiceRate.getBrands()).thenReturn(createListBrandOnlyForTestPurpose());
 
-        InsuredCar mBenzFull = new InsuredCar("Mercedes-Benz", 2019, CoverageType.basic);
+        InsuredCar mBenzFull = new InsuredCar("Mercedes-Benz", 2019, CoverageType.basic.name());
 
         Double result = estimateInsuranceService.getPrice(mBenzFull);
 
