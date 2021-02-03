@@ -6,11 +6,13 @@ import com.insurancecar.estimator.models.InsuredCar;
 import com.insurancecar.estimator.utils.Constants;
 import com.insurancecar.estimator.utils.CoverageType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
     @Autowired
     private BrandRateService brandRateService;
@@ -35,7 +37,7 @@ public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
         sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
 
         // check coverage type and increment with corresponding cost
-        if(insuredCar.getCoverageType() == CoverageType.full)
+        if(insuredCar.getCoverageType() == CoverageType.full.name())
             sum = sum * Constants.COVERAGE_FULL_RATE;
         else
             sum = sum * Constants.COVERAGE_BASIC_RATE;
@@ -46,7 +48,7 @@ public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
 
     private Double getRateByBrand(List<Brand> brandList, String brand){
         Optional<Brand> brandResult = brandList.stream()
-                .filter(element -> element.getName() == brand)
+                .filter(element -> element.getName().matches(brand))
                 .findFirst();
 
         if(brandResult.isPresent())

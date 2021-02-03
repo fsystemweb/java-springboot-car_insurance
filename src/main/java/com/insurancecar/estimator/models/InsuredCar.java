@@ -10,17 +10,16 @@ public class InsuredCar {
     @NotEmpty
     private String brand;
     @NotNull
-    @NotEmpty
     private Integer year;
     @NotNull
     @NotEmpty
-    private CoverageType coverageType;
+    private String coverageType;
     private Double price;
 
     public InsuredCar() {
     }
 
-    public InsuredCar(String brand, Integer year, CoverageType coverageType) {
+    public InsuredCar(String brand, Integer year, String coverageType) {
         this.brand = brand;
         this.year = year;
         this.coverageType = coverageType;
@@ -42,11 +41,11 @@ public class InsuredCar {
         this.year = year;
     }
 
-    public CoverageType getCoverageType() {
+    public String getCoverageType() {
         return coverageType;
     }
 
-    public void setCoverageType(CoverageType coverageType) {
+    public void setCoverageType(String coverageType) {
         this.coverageType = coverageType;
     }
 
