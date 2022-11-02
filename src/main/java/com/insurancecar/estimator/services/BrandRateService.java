@@ -4,6 +4,6 @@ import com.insurancecar.estimator.models.Brand;
 
 import java.util.List;
 
-public interface BrandRateService {
+interface BrandRateService {
     public List<Brand> getBrands();
 }

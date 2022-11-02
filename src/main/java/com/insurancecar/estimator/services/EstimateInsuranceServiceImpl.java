@@ -5,17 +5,20 @@ import com.insurancecar.estimator.models.Brand;
 import com.insurancecar.estimator.models.InsuredCar;
 import com.insurancecar.estimator.utils.Constants;
 import com.insurancecar.estimator.utils.CoverageType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
-    @Autowired
-    private BrandRateService brandRateService;
+    private final BrandRateService brandRateService;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public Double getPrice(InsuredCar insuredCar){
         List<Brand> brandList = brandRateService.getBrands();
@@ -37,13 +40,16 @@ public class EstimateInsuranceServiceImpl implements EstimateInsuranceService{
         sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
 
         // check coverage type and increment with corresponding cost
-        if(insuredCar.getCoverageType() == CoverageType.full.name())
+        if(insuredCar.getCoverageType().matches(CoverageType.full.name()))
             sum = sum * Constants.COVERAGE_FULL_RATE;
         else
             sum = sum * Constants.COVERAGE_BASIC_RATE;
 
-        return sum;
+        return this.formatPrice(sum);
+    }
 
+    private Double formatPrice(Double sum){
+        return Double.parseDouble(df.format(sum));
     }
 
     private Double getRateByBrand(List<Brand> brandList, String brand){

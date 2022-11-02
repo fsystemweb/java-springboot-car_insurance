@@ -1,10 +1,16 @@
 package com.insurancecar.estimator.models;
 
 import com.insurancecar.estimator.utils.CoverageType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class InsuredCar {
     @NotNull
     @NotEmpty
@@ -16,44 +22,9 @@ public class InsuredCar {
     private String coverageType;
     private Double price;
 
-    public InsuredCar() {
-    }
-
     public InsuredCar(String brand, Integer year, String coverageType) {
         this.brand = brand;
         this.year = year;
         this.coverageType = coverageType;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getCoverageType() {
-        return coverageType;
-    }
-
-    public void setCoverageType(String coverageType) {
-        this.coverageType = coverageType;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 }
