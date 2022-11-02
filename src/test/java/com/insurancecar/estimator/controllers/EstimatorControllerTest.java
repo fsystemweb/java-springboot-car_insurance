@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 
@@ -63,14 +64,9 @@ public class EstimatorControllerTest {
         insuredCar.setYear(2019);
         insuredCar.setCoverageType(CoverageType.full.name());
 
-        Mockito.when(estimateInsuranceService.getPrice(insuredCar)).thenReturn(335.11);
+        Double expected = 335.11;
 
-        double sum = Constants.BASE_AMOUNT;
-        sum = sum * 1.15;
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int diff = currentYear - insuredCar.getYear();
-        sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
-        Double expected = sum * Constants.COVERAGE_FULL_RATE;
+        Mockito.when(estimateInsuranceService.getPrice(insuredCar)).thenReturn(expected);
 
         ResponseEntity<InsuredCar> result = estimatorController.getEstimation(insuredCar);
 

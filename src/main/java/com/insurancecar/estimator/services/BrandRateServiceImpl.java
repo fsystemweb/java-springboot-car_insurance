@@ -2,6 +2,7 @@ package com.insurancecar.estimator.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insurancecar.estimator.models.Brand;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class BrandRateServiceImpl implements BrandRateService{
-    @Autowired
-    private ObjectMapper objectMapper;
+@RequiredArgsConstructor
+class BrandRateServiceImpl implements BrandRateService{
+    private final ObjectMapper objectMapper;
 
     public List<Brand> getBrands(){
         List<Brand> brandList = new ArrayList<Brand>();
