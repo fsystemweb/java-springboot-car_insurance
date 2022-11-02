@@ -16,12 +16,15 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 
-
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class EstimateInsuranceServiceTest {
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
     @Mock
     private BrandRateServiceImpl brandServiceRate;
 
@@ -57,6 +60,7 @@ public class EstimateInsuranceServiceTest {
         sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
         Double expected = sum * Constants.COVERAGE_FULL_RATE;
 
+        expected = this.formatPrice(expected);
 
         Assertions.assertEquals(expected, result);
     }
@@ -65,17 +69,18 @@ public class EstimateInsuranceServiceTest {
     public void getLowerPrice_whenUseCoverageTypeBasic()  {
         Mockito.when(brandServiceRate.getBrands()).thenReturn(createListBrandOnlyForTestPurpose());
 
-        InsuredCar mBenzFull = new InsuredCar("Mercedes-Benz", 2019, CoverageType.basic.name());
+        InsuredCar mBenzBasic = new InsuredCar("Mercedes-Benz", 2019, CoverageType.basic.name());
 
-        Double result = estimateInsuranceService.getPrice(mBenzFull);
+        Double result = estimateInsuranceService.getPrice(mBenzBasic);
 
         double sum = Constants.BASE_AMOUNT;
         sum = sum * 1.45;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int diff = currentYear - mBenzFull.getYear();
+        int diff = currentYear - mBenzBasic.getYear();
         sum -= ((diff * Constants.YEAR_PERCENT_DECREASE) * sum) / 100;
         Double expected = sum * Constants.COVERAGE_BASIC_RATE;
 
+        expected = this.formatPrice(expected);
 
         Assertions.assertEquals(expected, result);
     }
@@ -92,5 +97,9 @@ public class EstimateInsuranceServiceTest {
         brandList.add(kia);
 
         return brandList;
+    }
+
+    private Double formatPrice(Double sum){
+        return Double.parseDouble(df.format(sum));
     }
 }
